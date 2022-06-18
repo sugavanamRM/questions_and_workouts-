@@ -21,3 +21,16 @@
 	
 10)num = set{[1,1,2,3,3,3,4]}
 print(len(num))         -->  invalid syntax
+
+
+FUNCTIONS:
+
+11)what are the advantages of using functions?
+                        --> Reuse code
+	
+12)function keyword - def
+
+13)block of elements starts with (:)
+
+14)which file contains the predefined python code?
+                        --> Module
