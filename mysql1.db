@@ -1,0 +1,122 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sugav              |
+| sys                |
++--------------------+
+
+mysql> use sugav;
+
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+mysql> create table f1(driver varchar(25),country varchar(25),
+team varchar(25),points int);
+
+mysql> show tables;
++-----------------+
+| Tables_in_sugav |
++-----------------+
+| f1              |
++-----------------+
+
+
+insert into f1 values("Max Verstappen","Netherland","RED BULL RACING RBPT",175);
+
+insert into f1 values("Sergio Perez","Mexico","RED BULL RACING RBPT",129);
+
+insert into f1 values("Charles Leclerc","Monaco","FERRARI",126);
+
+insert into f1 values("George Russell","Britian","MERCEDES",111);
+
+insert into f1 values("Carlos Sainz","Spain","FERRARI",102);
+
+insert into f1 values("Lewis Hamilton","Britain","MERCEDES",77);
+
+insert into f1 values("Lando Norris","Britain","MERCEDES",50);
+
+insert into f1 values("Valtteri Bottas","Finland","ALFA ROMEO FERRARI",44);
+
+insert into f1 values("Esteban Ocon","France","ALPINE RENAULT",39);
+
+insert into f1 values("Fernando Alonso","Spain","ALPINE RENAULT",22);
+
+
+mysql> select * from f1;
++-----------------+-------------+----------------------+--------+
+| DRIVER          | NATIONALITY | TEAM                 | POINTS |
++-----------------+-------------+----------------------+--------+
+| Max Verstappen  | Netherland  | RED BULL RACING RBPT |    175 |
+| Sergio Perez    | Mexico      | RED BULL RACING RBPT |    129 |
+| Charles Leclerc | Monaco      | FERRARI              |    126 |
+| George Russell  | Britian     | MERCEDES             |    111 |
+| Carlos Sainz    | Spain       | FERRARI              |    102 |
+| Lewis Hamilton  | Britain     | MERCEDES             |     77 |
+| Lando Norris    | Britain     | MERCEDES             |     50 |
+| Valtteri Bottas | Finland     | ALFA ROMEO FERRARI   |     44 |
+| Esteban Ocon    | France      | ALPINE RENAULT       |     39 |
+| Fernando Alonso | Spain       | ALPINE RENAULT       |     22 |
++-----------------+-------------+----------------------+--------+
+
+insert into f1 values("Fernando Alonso","Spain","ALPINE RENAULT",22);
+
+mysql> select * from f1;
++-----------------+-------------+----------------------+--------+
+| DRIVER          | NATIONALITY | TEAM                 | POINTS |
++-----------------+-------------+----------------------+--------+
+| Max Verstappen  | Netherland  | RED BULL RACING RBPT |    175 |
+| Sergio Perez    | Mexico      | RED BULL RACING RBPT |    129 |
+| Charles Leclerc | Monaco      | FERRARI              |    126 |
+| George Russell  | Britian     | MERCEDES             |    111 |
+| Carlos Sainz    | Spain       | FERRARI              |    102 |
+| Lewis Hamilton  | Britain     | MERCEDES             |     77 |
+| Lando Norris    | Britain     | MERCEDES             |     50 |
+| Valtteri Bottas | Finland     | ALFA ROMEO FERRARI   |     44 |
+| Esteban Ocon    | France      | ALPINE RENAULT       |     39 |
+| Fernando Alonso | Spain       | ALPINE RENAULT       |     22 |
+| Fernando Alonso | Spain       | ALPINE RENAULT       |     12 |
++-----------------+-------------+----------------------+--------+
+
+mysql> delete from f1 where POINTS=12;
+
+
+mysql> select * from f1;
++-----------------+-------------+----------------------+--------+
+| DRIVER          | NATIONALITY | TEAM                 | POINTS |
++-----------------+-------------+----------------------+--------+
+| Max Verstappen  | Netherland  | RED BULL RACING RBPT |    175 |
+| Sergio Perez    | Mexico      | RED BULL RACING RBPT |    129 |
+| Charles Leclerc | Monaco      | FERRARI              |    126 |
+| George Russell  | Britian     | MERCEDES             |    111 |
+| Carlos Sainz    | Spain       | FERRARI              |    102 |
+| Lewis Hamilton  | Britain     | MERCEDES             |     77 |
+| Lando Norris    | Britain     | MERCEDES             |     50 |
+| Valtteri Bottas | Finland     | ALFA ROMEO FERRARI   |     44 |
+| Esteban Ocon    | France      | ALPINE RENAULT       |     39 |
+| Fernando Alonso | Spain       | ALPINE RENAULT       |     22 |
++-----------------+-------------+----------------------+--------+
+
+
+mysql> update f1 set TEAM="MCLAREN" where DRIVER="Lando Norris";
+
+mysql> select * from f1;
++-----------------+-------------+----------------------+--------+
+| DRIVER          | NATIONALITY | TEAM                 | POINTS |
++-----------------+-------------+----------------------+--------+
+| Max Verstappen  | Netherland  | RED BULL RACING RBPT |    175 |
+| Sergio Perez    | Mexico      | RED BULL RACING RBPT |    129 |
+| Charles Leclerc | Monaco      | FERRARI              |    126 |
+| George Russell  | Britian     | MERCEDES             |    111 |
+| Carlos Sainz    | Spain       | FERRARI              |    102 |
+| Lewis Hamilton  | Britain     | MERCEDES             |     77 |
+| Lando Norris    | Britain     | MCLAREN              |     50 |
+| Valtteri Bottas | Finland     | ALFA ROMEO FERRARI   |     44 |
+| Esteban Ocon    | France      | ALPINE RENAULT       |     39 |
+| Fernando Alonso | Spain       | ALPINE RENAULT       |     22 |
++-----------------+-------------+----------------------+--------+
+
+update f1 set TEAM="MCLAREN MERCEDES" where DRIVER="Lando Norris";
