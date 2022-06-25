@@ -120,3 +120,163 @@ mysql> select * from f1;
 +-----------------+-------------+----------------------+--------+
 
 update f1 set TEAM="MCLAREN MERCEDES" where DRIVER="Lando Norris";
+
+##########################################################################
+
+Basic syntax of join:
+
+select table1_name.column,table2_name.column
+from table1_name
+join table2_name on table1_name.column_name=table2_name.column_name;
+
+
+mysql> select * from Department;
++---------------+-----------------+
+| Department_id | Department_name |
++---------------+-----------------+
+|             1 | Executive       |
+|             2 | HR              |
+|             3 | sales           |
+|             4 | Development     |
+|             5 | Network         |
+|             6 | Research        |
++---------------+-----------------+
+
+mysql> select * from Employee;
++-------------+---------------+---------+----------------------+
+| Employee_id | Employee_name | Dept_id | Role                 |
++-------------+---------------+---------+----------------------+
+|         101 | Ram           |       3 | sales officer        |
+|         102 | Ravi          |       5 | senior support       |
+|         102 | Bala          |       1 | Director             |
+|         104 | Abilash       |       2 | Resource manager     |
+|         105 | sudhar        |       4 | java developer       |
+|         110 | rajesh        |       3 | Senior sales officer |
+|         111 | Ramya         |       5 | Technical lead       |
+|         112 | Rajkumar      |       1 | vp                   |
+|         113 | Thiru         |       2 | Finance              |
+|         114 | Ashok         |       4 | python developer     |
++-------------+---------------+---------+----------------------+
+
+
+Print the Employee name with their Department and their Role.
+
+*******(JOIN/INNER JOIN)********
+
+mysql> select Employee.Employee_name,Department.Department_name,Employee.Role
+    -> from Employee join Department on Employee.Dept_id=Department.Department_id;
+
++---------------+-----------------+----------------------+
+| Employee_name | Department_name | Role                 |
++---------------+-----------------+----------------------+
+| Ram           | sales           | sales officer        |
+| Ravi          | Network         | senior support       |
+| Bala          | Executive       | Director             |
+| Abilash       | HR              | Resource manager     |
+| sudhar        | Development     | java developer       |
+| rajesh        | sales           | Senior sales officer |
+| Ramya         | Network         | Technical lead       |
+| Rajkumar      | Executive       | vp                   |
+| Thiru         | HR              | Finance              |
+| Ashok         | Development     | python developer     |
++---------------+-----------------+----------------------+
+
+
+mysql> insert into Employee values(123,"Raghu",null,null),
+    -> (134,"subramani",null,"java developer");
+	
+##################################################################
+
+Left Join/Left Outer Join => inner join + left table
+	
+mysql> select * from Employee;
++-------------+---------------+---------+----------------------+
+| Employee_id | Employee_name | Dept_id | Role                 |
++-------------+---------------+---------+----------------------+
+|         101 | Ram           |       3 | sales officer        |
+|         102 | Ravi          |       5 | senior support       |
+|         102 | Bala          |       1 | Director             |
+|         104 | Abilash       |       2 | Resource manager     |
+|         105 | sudhar        |       4 | java developer       |
+|         110 | rajesh        |       3 | Senior sales officer |
+|         111 | Ramya         |       5 | Technical lead       |
+|         112 | Rajkumar      |       1 | vp                   |
+|         113 | Thiru         |       2 | Finance              |
+|         114 | Ashok         |       4 | python developer     |
+|         123 | Raghu         |    NULL | NULL                 |
+|         134 | subramani     |    NULL | java developer       |
++-------------+---------------+---------+----------------------+
+
+
+###########################################################################
+
+ALTER:   -->  Table structure redesign
+           *) New column Adding & Position
+           *) Column definition Modifying
+		   *) Drop the particular column
+           *) Column Rename
+		   
+New column Adding & Position:
+
+mysql> alter table Employee add column Employee_native varchar(20);
+
+mysql> alter table Employee add last_name varchar(25) after Employee_name;
+
+mysql> describe Employee;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| Employee_id     | int         | YES  |     | NULL    |       |
+| Employee_name   | varchar(25) | YES  |     | NULL    |       |
+| last_name       | varchar(25) | YES  |     | NULL    |       |
+| Dept_id         | int         | YES  |     | NULL    |       |
+| Role            | varchar(25) | YES  |     | NULL    |       |
+| Employee_native | varchar(20) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+
+
+Column definition Modifying:
+
+mysql> alter table Employee modify last_name varchar(30);
+
+mysql> describe Employee;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| Employee_id     | int         | YES  |     | NULL    |       |
+| Employee_name   | varchar(25) | YES  |     | NULL    |       |
+| Dept_id         | int         | YES  |     | NULL    |       |
+| Role            | varchar(25) | YES  |     | NULL    |       |
+| Employee_native | varchar(20) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+
+Drop the particular column:
+
+mysql> alter table Employee drop column last_name;
+
+mysql> describe Employee;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| Employee_id     | int         | YES  |     | NULL    |       |
+| Employee_name   | varchar(25) | YES  |     | NULL    |       |
+| Dept_id         | int         | YES  |     | NULL    |       |
+| Role            | varchar(25) | YES  |     | NULL    |       |
+| Employee_native | varchar(20) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+
+
+Column Rename:
+
+mysql> alter table Employee change column Employee_native Hometown varchar(30);
+
+mysql> describe Employee;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Employee_id   | int         | YES  |     | NULL    |       |
+| Employee_name | varchar(25) | YES  |     | NULL    |       |
+| Dept_id       | int         | YES  |     | NULL    |       |
+| Role          | varchar(25) | YES  |     | NULL    |       |
+| Hometown      | varchar(30) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
